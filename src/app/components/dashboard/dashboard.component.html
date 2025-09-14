@@ -1,0 +1,37 @@
+@if(isLoading)
+{
+<div class="d-flex justify-content-center align-items-center" style="height:200px;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+}
+@else{
+<div class="container mt-4">
+  <div class="d-flex align-items-center">
+    <h4 class="card-title mb-0">Dashboard</h4>
+
+    <div class="d-flex ms-auto align-items-center">
+      <div class="input-group me-3" style="max-width: 300px;">
+        <span class="input-group-text" id="search-addon">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Search by name or email" [formControl]="searchControl"
+          aria-label="Search">
+      </div>
+
+      <button class="btn d-flex align-items-center justify-content-center" (click)="toggleView()"
+        style="width: 40px; height: 40px; border-radius: 50%;">
+        <i class="bi" [ngClass]="isTableView ? 'bi-table' : 'bi-layout-sidebar'" style="font-size: 1.4rem;"></i>
+      </button>
+    </div>
+  </div>
+
+  @if (!isLoading && isTableView) {
+  <app-table [users]="filteredUsers"></app-table>
+  }
+
+  @if(!isLoading && !isTableView){
+  <app-user-card [users]="filteredUsers"></app-user-card>
+  }
+</div>}

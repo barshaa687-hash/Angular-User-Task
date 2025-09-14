@@ -1,0 +1,34 @@
+<div class="mt-4 mb-4">
+    @if (users().length > 0) {
+    <div class="row g-3">
+        @for (user of users(); track user.id) {
+        <div class="col-md-4 col-sm-6">
+            <div class="card user-card shadow-sm h-100" (click)="redirectToDetail(user)">
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.name }}</h2>
+
+                    @for(field of userFields; track field){
+                    <p class="card-text">
+                        <i class="bi {{ field.icon }} me-2"></i>
+                        @if(!field.isLink){
+                        {{ field.value(user) }}
+                        }
+                        @else{
+                        <a [href]="'https://' + field.value(user)" target="_blank"
+                            class="text-dark text-decoration-underline">
+                            {{ field.value(user) }}
+                        </a>
+                        }
+                    </p>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    } @else {
+    <div class="text-center py-5">
+        <i class="bi bi-exclamation-circle me-2"></i> No users found.
+    </div>
+    }
+</div>
